@@ -84,6 +84,7 @@ function mostrarInfo(el) {
     document.getElementById('modalYear').textContent = "Año: " + d.anio;
     document.getElementById('modalISBN').textContent = "ISBN: " + d.isbn;
     document.getElementById('modalEditorial').textContent = "Editorial: " + d.editorial;
+    document.getElementById("modalDimensiones").textContent = "Dimensiones: " + d.dimensiones;;
     document.getElementById('modalDescription').textContent = d.resumen;
     document.getElementById('modalPrice').textContent = "Precio: $" + d.precio;
 

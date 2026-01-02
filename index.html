@@ -25,13 +25,28 @@
         <a href="acerca_de.html" class="btn btn-primary text-white">Acerca de la librería</a>
     </header>
 
-    <!-- Carrito -->
-    <div class="carrito container">
-        <h2>Mi pedido</h2>
-        <ul id="listaCarrito" class="list-unstyled"></ul>
-        <p>Total: <span id="total">0</span> CLP</p>
-        <button onclick="scrollToContacto()" class="btn btn-primary">Realizar pedido</button>
-    </div>
+<!-- Botón flotante del carrito -->
+<button id="cart-button" class="cart-float-btn">
+  🛒 Tu pedido <span id="cart-count">0</span>
+</button>
+
+<!-- Modal del carrito -->
+<div id="cart-modal" class="cart-modal">
+  <div class="cart-modal-content">
+    <span id="close-cart" class="close">&times;</span>
+    <h2>Tu pedido</h2>
+    
+    <!-- Lista de productos -->
+    <ul id="listaCarrito"></ul>
+    
+    <!-- Total -->
+    <p>Total: CLP <span id="total">0</span></p>
+    
+    <!-- Botón de finalizar compra -->
+    <button id="checkout-btn" class="checkout-btn">Finalizar compra</button>
+  </div>
+</div>
+
 
     <hr>
 
@@ -570,7 +585,7 @@
   <!-- formulario de contacto -->
   <section id="contacto">
     <h2>Finalizar pedido</h2>
-	<p>Al enviar tu pedido, recibirás un correo de confirmación con datos para realizar el pago y métodos de envío o entrega.</p>
+    <p>Al enviar tu pedido, recibirás un correo de confirmación con datos para realizar el pago y métodos de envío o entrega.</p>
     <form id="formContacto">
       <input type="text" name="user_name" placeholder="Tu nombre" required>
       <input type="email" name="user_email" placeholder="Tu correo" required>

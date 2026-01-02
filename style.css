@@ -45,8 +45,7 @@ footer {
   cursor: pointer;
 }
 
-/* ===== Carrito y formulario ===== */
-.carrito,
+/* ===== formulario ===== */
 .formulario {
   background: hsl(150, 30%, 80%);
   padding: 20px;
@@ -83,14 +82,13 @@ button:hover {
 }
 /* ===== Contacto ===== */
 #contacto {
-  max-width: 600px;
+  max-width: 800px;
   margin: 40px auto;
   padding: 25px;
   background: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+  font-family: 'Atkinson Hyperlegible', sans-serif;}
 
 #contacto h2 {
   text-align: center;
@@ -138,10 +136,9 @@ button:hover {
 #contacto p {
   font-size: 16px;
   margin-top: 10px;
-  text-align: left;
+  text-align: right;
   color: #333;
 }
-
 
 /* ===== Sección "Acerca de" ===== */
 .acerca_de {
@@ -149,7 +146,90 @@ button:hover {
   margin: 20px auto;      /* opcional: separa del resto de la página */
   max-width: 900px;       /* opcional: limita el ancho para que no se pegue a los bordes */
   line-height: 1.6;       /* mejora la legibilidad del texto */
-  
-  
+
+/* ===== Carrito ===== */
+
+}.cart-float-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgb(13, 110, 253); 
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  z-index: 1000;
+  transition: background 0.3s ease;
+}
+
+.cart-float-btn:hover {
+  background: rgb(11, 94, 215); /* Azul más oscuro para hover */
+}
+
+.checkout-btn {
+  background: #6c757d;   /* Gris neutro */
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.checkout-btn:hover {
+  background: #5a6268;   /* Gris más oscuro al hover */
+}
+
+/* Modal del carrito */
+.cart-modal {
+  display: none; /* Oculto por defecto */
+  position: fixed;
+  z-index: 2000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.cart-modal-content {
+  background: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 800px;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Ítems del carrito */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-item span {
+  flex: 1;
+}
+
+.cart-item button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.cart-item button:hover {
+  color: #dc3545; /* Rojo al hover */
 }
 

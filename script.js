@@ -44,31 +44,29 @@ function actualizarCarrito() {
 
     carrito.forEach(item => {
         const li = document.createElement("li");
-        li.textContent = `${item.nombre} - CLP ${item.precio} (Cantidad: ${item.cantidad}) `;
-
-        const botonEliminar = document.createElement("button");
-        botonEliminar.textContent = "Eliminar";
-        botonEliminar.onclick = () => eliminarDelCarrito(item.nombre);
-        li.appendChild(botonEliminar);
-
+        li.classList.add("cart-item");
+        li.innerHTML = `
+          <span>${item.nombre} - CLP ${item.precio} (Cantidad: ${item.cantidad})</span>
+          <button onclick="eliminarDelCarrito('${item.nombre}')">🗑️</button>
+        `;
         lista.appendChild(li);
 
         carritoTexto.push(`${item.nombre} - CLP ${item.precio} (Cantidad: ${item.cantidad})`);
     });
 
-    // Actualiza el total visible
+    // Actualiza el total visible en el modal
     totalElemento.textContent = total;
+
+    // Actualiza también el formulario de contacto
     document.getElementById("totalVisible").textContent = total;
-
-    // 👇 Aquí actualizamos el detalle visible en el formulario
     document.getElementById("detalleVisible").innerHTML = carritoTexto.join('<br>');
-
-    // Actualiza los campos ocultos para EmailJS
     document.getElementById("carrito").value = carritoTexto.join(', ');
     document.getElementById("detallesPedido").value = carritoTexto.join('\n');
     document.getElementById("totalPedido").value = total;
-}
 
+    // 👇 Actualiza el badge del botón flotante
+    document.getElementById("cart-count").textContent = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+}
 
 /* ============================
    Modal de producto
@@ -84,7 +82,7 @@ function mostrarInfo(el) {
     document.getElementById('modalYear').textContent = "Año: " + d.anio;
     document.getElementById('modalISBN').textContent = "ISBN: " + d.isbn;
     document.getElementById('modalEditorial').textContent = "Editorial: " + d.editorial;
-    document.getElementById("modalDimensiones").textContent = "Dimensiones: " + d.dimensiones;;
+    document.getElementById("modalDimensiones").textContent = "Dimensiones: " + d.dimensiones;
     document.getElementById('modalDescription').textContent = d.resumen;
     document.getElementById('modalPrice').textContent = "Precio: $" + d.precio;
 
@@ -157,3 +155,35 @@ function scrollToContacto() {
     document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
 }
 
+/* ============================
+   Modal del carrito
+============================ */
+// Referencias
+const cartButton = document.getElementById('cart-button');
+const cartModal = document.getElementById('cart-modal');
+const closeCart = document.getElementById('close-cart');
+const cartCount = document.getElementById('cart-count');
+const checkoutBtn = document.getElementById('checkout-btn');
+
+// Abrir modal
+cartButton.addEventListener('click', () => {
+  cartModal.style.display = 'block';
+});
+
+// Cerrar modal
+closeCart.addEventListener('click', () => {
+  cartModal.style.display = 'none';
+});
+
+// Cerrar al hacer clic fuera
+window.addEventListener('click', (event) => {
+  if (event.target === cartModal) {
+    cartModal.style.display = 'none';
+  }
+});
+
+// Botón de finalizar compra → scroll al formulario
+checkoutBtn.addEventListener('click', () => {
+  cartModal.style.display = 'none';
+  scrollToContacto();
+});

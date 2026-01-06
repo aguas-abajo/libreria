@@ -10,7 +10,7 @@ h1 {
 /* ===== Encabezado y pie de página ===== */
 header {
   background-image: url('aguas.png');
-  height: 630px;
+  height: 450px;
   background-size: cover;
   background-position: center;
   color: white;

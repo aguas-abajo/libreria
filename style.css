@@ -1,6 +1,35 @@
+/* ===== Variables de color ===== */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --header-text: #ffffff;
+  --footer-bg: #333333;
+  --footer-text: #ffffff;
+  --card-bg: #f9f9f9;
+  --card-border: #cccccc;
+  --button-bg: #333333;
+  --button-text: #ffffff;
+  --link-color: #007bff;
+}
+
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --header-text: #f1f1f1;
+  --footer-bg: #1e1e1e;
+  --footer-text: #cccccc;
+  --card-bg: #1e1e1e;
+  --card-border: #444444;
+  --button-bg: #444444;
+  --button-text: #eeeeee;
+  --link-color: #3399ff;
+}
+
 /* ===== Tipografía y elementos generales ===== */
 body {
   font-family: 'Atkinson Hyperlegible', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 h1 {
@@ -13,14 +42,14 @@ header {
   height: 450px;
   background-size: cover;
   background-position: center;
-  color: white;
+  color: var(--header-text);
   text-align: center;
   padding: 40px;
 }
 
 footer {
-  background-color: #333;
-  color: white;
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
   padding: 10px;
   text-align: center;
 }
@@ -31,11 +60,12 @@ footer {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  border: 1px solid #ccc;
+  border: 1px solid var(--card-border);
   border-radius: 5px;
   padding: 10px;
   margin: 10px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  background-color: var(--card-bg);
 }
 
 .producto img {
@@ -54,16 +84,10 @@ footer {
   text-align: right;
 }
 
-.formulario input,
-.formulario textarea {
-  width: 100%;
-  margin-bottom: 10px;
-}
-
 /* ===== Botones ===== */
 button {
-  background-color: #333;
-  color: white;
+  background-color: var(--button-bg);
+  color: var(--button-text);
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -86,16 +110,17 @@ button:hover {
   max-width: 800px;
   margin: 40px auto;
   padding: 25px;
-  background: #f9f9f9;
+  background: var(--card-bg);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   font-family: 'Atkinson Hyperlegible', sans-serif;
+  color: var(--text-color);
 }
 
 #contacto h2 {
   text-align: center;
   margin-bottom: 20px;
-  color: #333;
+  color: var(--text-color);
 }
 
 #formContacto input[type="text"],
@@ -105,15 +130,17 @@ button:hover {
   width: 100%;
   padding: 12px 15px;
   margin-bottom: 15px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--card-border);
   border-radius: 6px;
   font-size: 15px;
   transition: border-color 0.3s, box-shadow 0.3s;
+  background: var(--bg-color);
+  color: var(--text-color);
 }
 
 #formContacto input:focus,
 #formContacto textarea:focus {
-  border-color: #007bff;
+  border-color: var(--link-color);
   box-shadow: 0 0 6px rgba(0,123,255,0.3);
   outline: none;
 }
@@ -121,7 +148,7 @@ button:hover {
 #formContacto button {
   width: 100%;
   padding: 12px;
-  background: #007bff;
+  background: var(--link-color);
   color: #fff;
   font-size: 16px;
   font-weight: bold;
@@ -139,7 +166,7 @@ button:hover {
   font-size: 16px;
   margin-top: 10px;
   text-align: right;
-  color: #333;
+  color: var(--text-color);
 }
 
 /* ===== Sección "Acerca de" ===== */
@@ -155,7 +182,7 @@ button:hover {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: rgb(13, 110, 253); 
+  background: var(--link-color);
   color: #fff;
   border: none;
   border-radius: 50px;
@@ -167,7 +194,7 @@ button:hover {
 }
 
 .cart-float-btn:hover {
-  background: rgb(11, 94, 215);
+  background: #0056b3;
 }
 
 .checkout-btn {
@@ -195,13 +222,14 @@ button:hover {
 }
 
 .cart-modal-content {
-  background: #fff;
+  background: var(--card-bg);
   margin: 10% auto;
   padding: 20px;
   border-radius: 8px;
   width: 80%;
   max-width: 800px;
   position: relative;
+  color: var(--text-color);
 }
 
 .close {
@@ -217,7 +245,7 @@ button:hover {
   justify-content: space-between;
   align-items: center;
   padding: 8px 0;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--card-border);
 }
 
 .cart-item span {
@@ -233,81 +261,4 @@ button:hover {
 
 .cart-item button:hover {
   color: #dc3545;
-}
-
-/* ===== Modo oscuro ===== */
-body.dark-mode {
-  background-color: #121212;
-  color: #e0e0e0;
-}
-
-body.dark-mode header {
-  background-image: url('aguas.png');
-  color: #f1f1f1;
-}
-
-body.dark-mode footer {
-  background-color: #1e1e1e;
-  color: #ccc;
-}
-
-body.dark-mode .producto {
-  border: 1px solid #444;
-  box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.1);
-  background-color: #1e1e1e;
-}
-
-body.dark-mode .formulario {
-  background: #2a2a2a;
-  color: #ddd;
-}
-
-body.dark-mode button {
-  background-color: #444;
-  color: #eee;
-}
-
-body.dark-mode button:hover {
-  background-color: #666;
-}
-
-body.dark-mode #contacto {
-  background: #1e1e1e;
-  color: #ddd;
-  box-shadow: 0 4px 12px rgba(255,255,255,0.1);
-}
-
-body.dark-mode #contacto h2,
-body.dark-mode #contacto p {
-  color: #ddd;
-}
-
-body.dark-mode #formContacto input,
-body.dark-mode #formContacto textarea {
-  background: #2a2a2a;
-  border: 1px solid #555;
-  color: #eee;
-}
-
-body.dark-mode #formContacto input:focus,
-body.dark-mode #formContacto textarea:focus {
-  border-color: #66b2ff;
-  box-shadow: 0 0 6px rgba(102,178,255,0.3);
-}
-
-body.dark-mode #formContacto button {
-  background: #3399ff;
-}
-
-body.dark-mode #formContacto button:hover {
-  background: #267acc;
-}
-
-body.dark-mode .cart-modal-content {
-  background: #1e1e1e;
-  color: #ddd;
-}
-
-body.dark-mode .cart-item {
-  border-bottom: 1px solid #444;
 }

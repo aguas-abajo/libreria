@@ -98,11 +98,28 @@ button:hover {
   background-color: #555;
 }
 
-/* ===== Modal ===== */
-#modalDescription {
-  max-height: 300px;
-  overflow-y: auto;
-  white-space: pre-wrap;
+/* ===== Modal genérico ===== */
+.modal-content {
+  background: var(--card-bg);
+  color: var(--text-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.modal-header,
+.modal-footer {
+  border-color: var(--card-border);
+}
+
+.modal-title,
+.modal-body,
+.modal-footer span,
+.modal-footer p {
+  color: var(--text-color);
+}
+
+.btn-close {
+  filter: invert( var(--text-color) == #000000 ? 0 : 1 );
 }
 
 /* ===== Contacto ===== */
@@ -263,10 +280,10 @@ button:hover {
   color: #dc3545;
 }
 
-/* Botón flotante de tema */
+/* ===== Botón flotante de tema ===== */
 .theme-float-btn {
   position: fixed;
-  bottom: 70px; /* un poco más arriba que el carrito */
+  bottom: 70px; /* encima del carrito */
   right: 20px;
   background: var(--button-bg);
   color: var(--button-text);
@@ -275,11 +292,12 @@ button:hover {
   padding: 12px 20px;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-  z-index: 1000;
+  z-index: 2000;
   transition: background 0.3s ease;
 }
 
 .theme-float-btn:hover {
   background: #555;
 }
+
 

@@ -146,10 +146,10 @@ button:hover {
   margin: 20px auto;      /* opcional: separa del resto de la página */
   max-width: 900px;       /* opcional: limita el ancho para que no se pegue a los bordes */
   line-height: 1.6;       /* mejora la legibilidad del texto */
-
+}
 /* ===== Carrito ===== */
 
-}.cart-float-btn {
+.cart-float-btn {
   position: fixed;
   bottom: 20px;
   right: 20px;

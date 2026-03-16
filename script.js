@@ -38,8 +38,10 @@ function eliminarDelCarrito(nombre) {
 function actualizarCarrito() {
     const lista = document.getElementById("listaCarrito");
     const totalElemento = document.getElementById("total");
-    const carritoTexto = [];
 
+    if (!lista || !totalElemento) return; // protección
+
+    const carritoTexto = [];
     lista.innerHTML = "";
 
     carrito.forEach(item => {
@@ -50,22 +52,25 @@ function actualizarCarrito() {
           <button onclick="eliminarDelCarrito('${item.nombre}')">🗑️</button>
         `;
         lista.appendChild(li);
-
         carritoTexto.push(`${item.nombre} - CLP ${item.precio} (Cantidad: ${item.cantidad})`);
     });
 
-    // Actualiza el total visible en el modal
     totalElemento.textContent = total;
 
-    // Actualiza también el formulario de contacto
-    document.getElementById("totalVisible").textContent = total;
-    document.getElementById("detalleVisible").innerHTML = carritoTexto.join('<br>');
-    document.getElementById("carrito").value = carritoTexto.join(', ');
-    document.getElementById("detallesPedido").value = carritoTexto.join('\n');
-    document.getElementById("totalPedido").value = total;
+    // Actualiza también el formulario de contacto si existe
+    const totalVisible = document.getElementById("totalVisible");
+    const detalleVisible = document.getElementById("detalleVisible");
+    const carritoInput = document.getElementById("carrito");
+    const detallesPedido = document.getElementById("detallesPedido");
+    const totalPedido = document.getElementById("totalPedido");
+    const cartCount = document.getElementById("cart-count");
 
-    // 👇 Actualiza el badge del botón flotante
-    document.getElementById("cart-count").textContent = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+    if (totalVisible) totalVisible.textContent = total;
+    if (detalleVisible) detalleVisible.innerHTML = carritoTexto.join('<br>');
+    if (carritoInput) carritoInput.value = carritoTexto.join(', ');
+    if (detallesPedido) detallesPedido.value = carritoTexto.join('\n');
+    if (totalPedido) totalPedido.value = total;
+    if (cartCount) cartCount.textContent = carrito.reduce((acc, item) => acc + item.cantidad, 0);
 }
 
 /* ============================
@@ -74,10 +79,14 @@ function actualizarCarrito() {
 function mostrarInfo(el) {
     const d = el.dataset;
 
-    // Imagen principal
-    document.getElementById('imgModal').src = d.cover;
+    const imgModal = document.getElementById('imgModal');
+    if (!imgModal) return;
 
-    // Info textual
+    imgModal.src = d.cover;
+
+    const modalElement = document.getElementById('imageModal');
+    if (!modalElement) return;
+
     document.getElementById('modalAuthor').textContent = "Autor: " + d.autor;
     document.getElementById('modalYear').textContent = "Año: " + d.anio;
     document.getElementById('modalISBN').textContent = "ISBN: " + d.isbn;
@@ -86,22 +95,22 @@ function mostrarInfo(el) {
     document.getElementById('modalDescription').textContent = d.resumen;
     document.getElementById('modalPrice').textContent = "Precio: $" + d.precio;
 
-    // Navegación de imágenes
     images = [d.cover, d.back, d.in].filter(src => src && src !== "");
     currentIndex = 0;
 
     checkButtons();
-    document.getElementById('prevBtn').onclick = prevImage;
-    document.getElementById('nextBtn').onclick = nextImage;
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    if (prevBtn) prevBtn.onclick = prevImage;
+    if (nextBtn) nextBtn.onclick = nextImage;
 
-    // Mostrar modal con Bootstrap 5 (sin jQuery)
-    const modalElement = document.getElementById('imageModal');
     const modal = new bootstrap.Modal(modalElement);
     modal.show();
 }
 
 function updateModalImage() {
-    document.getElementById('imgModal').src = images[currentIndex];
+    const imgModal = document.getElementById('imgModal');
+    if (imgModal) imgModal.src = images[currentIndex];
     checkButtons();
 }
 
@@ -120,79 +129,81 @@ function nextImage() {
 }
 
 function checkButtons() {
-    document.getElementById('prevBtn').style.display = currentIndex === 0 ? 'none' : 'inline';
-    document.getElementById('nextBtn').style.display = currentIndex === images.length - 1 ? 'none' : 'inline';
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    if (prevBtn) prevBtn.style.display = currentIndex === 0 ? 'none' : 'inline';
+    if (nextBtn) nextBtn.style.display = currentIndex === images.length - 1 ? 'none' : 'inline';
 }
 
 /* ============================
    Formulario de contacto con EmailJS
 ============================ */
-// Inicializa EmailJS (pon tu PUBLIC_KEY aquí)
 (function(){
-    emailjs.init({ publicKey: "ds5KnZTHJ1_yDQF0W" });
+    if (typeof emailjs !== "undefined") {
+        emailjs.init({ publicKey: "ds5KnZTHJ1_yDQF0W" });
+    }
 })();
 
-document.getElementById('formContacto').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    emailjs.sendForm('service_vp6o8jw', 'template_jqjt34n', this)
-      .then(() => {
-        alert('Formulario enviado 🎉. ¡Gracias por tu pedido! Recibirás un correo con detalles de pago y opciones de envío.');
-        this.reset();
-        carrito = [];
-        total = 0;
-        actualizarCarrito();
-      }, (error) => {
-        alert('Hubo un problema al enviar el formulario. Por favor, inténtalo de nuevo.');
-        console.error('Error:', error);
-      });
-});
+const formContacto = document.getElementById('formContacto');
+if (formContacto && typeof emailjs !== "undefined") {
+    formContacto.addEventListener('submit', function(event) {
+        event.preventDefault();
+        emailjs.sendForm('service_vp6o8jw', 'template_jqjt34n', this)
+          .then(() => {
+            alert('Formulario enviado 🎉. ¡Gracias por tu pedido!');
+            this.reset();
+            carrito = [];
+            total = 0;
+            actualizarCarrito();
+          }, (error) => {
+            alert('Hubo un problema al enviar el formulario.');
+            console.error('Error:', error);
+          });
+    });
+}
 
 /* ============================
    Scroll suave a contacto
 ============================ */
 function scrollToContacto() {
-    document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+    const contacto = document.getElementById('contacto');
+    if (contacto) contacto.scrollIntoView({ behavior: 'smooth' });
 }
 
 /* ============================
    Modal del carrito
 ============================ */
-// Referencias
 const cartButton = document.getElementById('cart-button');
 const cartModal = document.getElementById('cart-modal');
 const closeCart = document.getElementById('close-cart');
-const cartCount = document.getElementById('cart-count');
 const checkoutBtn = document.getElementById('checkout-btn');
 
-// Abrir modal
-cartButton.addEventListener('click', () => {
-  cartModal.style.display = 'block';
-});
+if (cartButton && cartModal && closeCart && checkoutBtn) {
+    cartButton.addEventListener('click', () => {
+      cartModal.style.display = 'block';
+    });
 
-// Cerrar modal
-closeCart.addEventListener('click', () => {
-  cartModal.style.display = 'none';
-});
+    closeCart.addEventListener('click', () => {
+      cartModal.style.display = 'none';
+    });
 
-// Cerrar al hacer clic fuera
-window.addEventListener('click', (event) => {
-  if (event.target === cartModal) {
-    cartModal.style.display = 'none';
-  }
-});
+    window.addEventListener('click', (event) => {
+      if (event.target === cartModal) {
+        cartModal.style.display = 'none';
+      }
+    });
 
-// Botón de finalizar compra → scroll al formulario
-checkoutBtn.addEventListener('click', () => {
-  cartModal.style.display = 'none';
-  scrollToContacto();
-});
+    checkoutBtn.addEventListener('click', () => {
+      cartModal.style.display = 'none';
+      scrollToContacto();
+    });
+}
 
-// Modo oscuro
+/* ============================
+   Modo oscuro
+============================ */
 document.addEventListener("DOMContentLoaded", () => {
   const root = document.documentElement;
-
-  // Crear botón flotante de tema si no existe
   let toggle = document.getElementById("theme-toggle");
   if (!toggle) {
     toggle = document.createElement("button");
@@ -202,7 +213,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(toggle);
   }
 
-  // Cargar preferencia guardada
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme) {
     root.setAttribute("data-theme", savedTheme);
@@ -211,7 +221,6 @@ document.addEventListener("DOMContentLoaded", () => {
     root.setAttribute("data-theme", "light");
   }
 
-  // Alternar tema
   toggle.addEventListener("click", () => {
     const currentTheme = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
     root.setAttribute("data-theme", currentTheme);

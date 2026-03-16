@@ -188,25 +188,34 @@ checkoutBtn.addEventListener('click', () => {
   scrollToContacto();
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-  const toggleBtn = document.getElementById("toggleDarkMode");
+document.addEventListener("DOMContentLoaded", () => {
+  const root = document.documentElement;
 
-  // Al cargar la página, revisa si el usuario ya eligió modo oscuro
-  if (localStorage.getItem("dark-mode") === "true") {
-    document.body.classList.add("dark-mode");
+  // Crear botón flotante de tema si no existe
+  let toggle = document.getElementById("theme-toggle");
+  if (!toggle) {
+    toggle = document.createElement("button");
+    toggle.id = "theme-toggle";
+    toggle.className = "theme-float-btn";
+    toggle.textContent = "🌙 Modo oscuro";
+    document.body.appendChild(toggle);
   }
 
-  // Configura el botón para alternar
-  if (toggleBtn) {
-    toggleBtn.addEventListener("click", function() {
-      document.body.classList.toggle("dark-mode");
-
-      // Guarda la preferencia en localStorage
-      if (document.body.classList.contains("dark-mode")) {
-        localStorage.setItem("dark-mode", "true");
-      } else {
-        localStorage.setItem("dark-mode", "false");
-      }
-    });
+  // Cargar preferencia guardada
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme) {
+    root.setAttribute("data-theme", savedTheme);
+    toggle.textContent = savedTheme === "dark" ? "☀️ Modo claro" : "🌙 Modo oscuro";
+  } else {
+    root.setAttribute("data-theme", "light");
   }
+
+  // Alternar tema
+  toggle.addEventListener("click", () => {
+    const currentTheme = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", currentTheme);
+    localStorage.setItem("theme", currentTheme);
+    toggle.textContent = currentTheme === "dark" ? "☀️ Modo claro" : "🌙 Modo oscuro";
+  });
 });
+

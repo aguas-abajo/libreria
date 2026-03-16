@@ -80,6 +80,7 @@ button:hover {
   overflow-y: auto;
   white-space: pre-wrap;
 }
+
 /* ===== Contacto ===== */
 #contacto {
   max-width: 800px;
@@ -88,7 +89,8 @@ button:hover {
   background: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  font-family: 'Atkinson Hyperlegible', sans-serif;}
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+}
 
 #contacto h2 {
   text-align: center;
@@ -142,13 +144,13 @@ button:hover {
 
 /* ===== Sección "Acerca de" ===== */
 .acerca_de {
-  padding: 40px;          /* espacio interno alrededor del texto */
-  margin: 20px auto;      /* opcional: separa del resto de la página */
-  max-width: 900px;       /* opcional: limita el ancho para que no se pegue a los bordes */
-  line-height: 1.6;       /* mejora la legibilidad del texto */
+  padding: 40px;
+  margin: 20px auto;
+  max-width: 900px;
+  line-height: 1.6;
 }
-/* ===== Carrito ===== */
 
+/* ===== Carrito ===== */
 .cart-float-btn {
   position: fixed;
   bottom: 20px;
@@ -165,11 +167,11 @@ button:hover {
 }
 
 .cart-float-btn:hover {
-  background: rgb(11, 94, 215); /* Azul más oscuro para hover */
+  background: rgb(11, 94, 215);
 }
 
 .checkout-btn {
-  background: #6c757d;   /* Gris neutro */
+  background: #6c757d;
   color: #fff;
   border: none;
   padding: 10px 16px;
@@ -179,12 +181,12 @@ button:hover {
 }
 
 .checkout-btn:hover {
-  background: #5a6268;   /* Gris más oscuro al hover */
+  background: #5a6268;
 }
 
 /* Modal del carrito */
 .cart-modal {
-  display: none; /* Oculto por defecto */
+  display: none;
   position: fixed;
   z-index: 2000;
   left: 0; top: 0;
@@ -230,7 +232,7 @@ button:hover {
 }
 
 .cart-item button:hover {
-  color: #dc3545; /* Rojo al hover */
+  color: #dc3545;
 }
 
 /* ===== Modo oscuro ===== */
@@ -240,7 +242,7 @@ body.dark-mode {
 }
 
 body.dark-mode header {
-  background-image: url('aguas.png'); /* puedes mantener la misma imagen */
+  background-image: url('aguas.png');
   color: #f1f1f1;
 }
 
@@ -309,5 +311,3 @@ body.dark-mode .cart-modal-content {
 body.dark-mode .cart-item {
   border-bottom: 1px solid #444;
 }
-
-

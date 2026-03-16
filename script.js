@@ -218,4 +218,3 @@ document.addEventListener("DOMContentLoaded", () => {
     toggle.textContent = currentTheme === "dark" ? "☀️ Modo claro" : "🌙 Modo oscuro";
   });
 });
-

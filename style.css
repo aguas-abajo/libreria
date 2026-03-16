@@ -112,8 +112,8 @@ button:hover {
 }
 
 .modal-title,
-.modal-body,
-.modal-footer span,
+.modal-body p,
+.modal-body div,
 .modal-footer p {
   color: var(--text-color);
 }
@@ -299,5 +299,3 @@ button:hover {
 .theme-float-btn:hover {
   background: #555;
 }
-
-

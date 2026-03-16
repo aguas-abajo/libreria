@@ -188,6 +188,7 @@ checkoutBtn.addEventListener('click', () => {
   scrollToContacto();
 });
 
+// Modo oscuro
 document.addEventListener("DOMContentLoaded", () => {
   const root = document.documentElement;
 

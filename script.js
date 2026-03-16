@@ -187,3 +187,26 @@ checkoutBtn.addEventListener('click', () => {
   cartModal.style.display = 'none';
   scrollToContacto();
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+  const toggleBtn = document.getElementById("toggleDarkMode");
+
+  // Al cargar la página, revisa si el usuario ya eligió modo oscuro
+  if (localStorage.getItem("dark-mode") === "true") {
+    document.body.classList.add("dark-mode");
+  }
+
+  // Configura el botón para alternar
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", function() {
+      document.body.classList.toggle("dark-mode");
+
+      // Guarda la preferencia en localStorage
+      if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("dark-mode", "true");
+      } else {
+        localStorage.setItem("dark-mode", "false");
+      }
+    });
+  }
+});

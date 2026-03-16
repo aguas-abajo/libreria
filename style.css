@@ -262,3 +262,24 @@ button:hover {
 .cart-item button:hover {
   color: #dc3545;
 }
+
+/* Botón flotante de tema */
+.theme-float-btn {
+  position: fixed;
+  bottom: 70px; /* un poco más arriba que el carrito */
+  right: 20px;
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  border-radius: 50px;
+  padding: 12px 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  z-index: 1000;
+  transition: background 0.3s ease;
+}
+
+.theme-float-btn:hover {
+  background: #555;
+}
+

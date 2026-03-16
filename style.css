@@ -233,3 +233,81 @@ button:hover {
   color: #dc3545; /* Rojo al hover */
 }
 
+/* ===== Modo oscuro ===== */
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode header {
+  background-image: url('aguas.png'); /* puedes mantener la misma imagen */
+  color: #f1f1f1;
+}
+
+body.dark-mode footer {
+  background-color: #1e1e1e;
+  color: #ccc;
+}
+
+body.dark-mode .producto {
+  border: 1px solid #444;
+  box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.1);
+  background-color: #1e1e1e;
+}
+
+body.dark-mode .formulario {
+  background: #2a2a2a;
+  color: #ddd;
+}
+
+body.dark-mode button {
+  background-color: #444;
+  color: #eee;
+}
+
+body.dark-mode button:hover {
+  background-color: #666;
+}
+
+body.dark-mode #contacto {
+  background: #1e1e1e;
+  color: #ddd;
+  box-shadow: 0 4px 12px rgba(255,255,255,0.1);
+}
+
+body.dark-mode #contacto h2,
+body.dark-mode #contacto p {
+  color: #ddd;
+}
+
+body.dark-mode #formContacto input,
+body.dark-mode #formContacto textarea {
+  background: #2a2a2a;
+  border: 1px solid #555;
+  color: #eee;
+}
+
+body.dark-mode #formContacto input:focus,
+body.dark-mode #formContacto textarea:focus {
+  border-color: #66b2ff;
+  box-shadow: 0 0 6px rgba(102,178,255,0.3);
+}
+
+body.dark-mode #formContacto button {
+  background: #3399ff;
+}
+
+body.dark-mode #formContacto button:hover {
+  background: #267acc;
+}
+
+body.dark-mode .cart-modal-content {
+  background: #1e1e1e;
+  color: #ddd;
+}
+
+body.dark-mode .cart-item {
+  border-bottom: 1px solid #444;
+}
+
+

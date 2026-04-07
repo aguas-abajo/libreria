@@ -275,3 +275,19 @@ imgModal.addEventListener("wheel", function(e) {
         zoomFactor = Math.max(1, zoomFactor - 0.5); // alejar, mínimo 1
     }
 });
+
+function toggleCategoria(boton) {
+  const categoriaDiv = boton.closest('.categoria');
+  const hiddenItems = categoriaDiv.querySelectorAll('.hidden-item');
+  const expanded = boton.getAttribute('data-expanded') === 'true';
+  hiddenItems.forEach(item => {
+    item.style.display = expanded ? 'none' : 'block';
+  });
+  boton.textContent = expanded ? 'Ver más' : 'Ver menos';
+  boton.setAttribute('data-expanded', expanded ? 'false' : 'true');
+}
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.hidden-item').forEach(item => {
+    item.style.display = 'none';
+  });
+});

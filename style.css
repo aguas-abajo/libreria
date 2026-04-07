@@ -343,3 +343,18 @@ button:hover {
   width: 200%; /* nivel de zoom */
   height: auto;
 }
+
+.ver-mas-container {
+  text-align: center;
+  margin-top: 15px;
+}
+.ver-mas {
+  padding: 8px 16px;
+  background-color: #444;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+.ver-mas:hover {
+  background-color: #666;
+}

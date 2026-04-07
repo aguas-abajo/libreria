@@ -228,6 +228,8 @@ document.addEventListener("DOMContentLoaded", () => {
     toggle.textContent = currentTheme === "dark" ? "☀️ Modo claro" : "🌙 Modo oscuro";
   });
 });
+
+//zoom
 const imgModal = document.getElementById("imgModal");
 const lupa = document.getElementById("lupa");
 let zoomFactor = 3; // nivel inicial de zoom
@@ -275,7 +277,7 @@ imgModal.addEventListener("wheel", function(e) {
         zoomFactor = Math.max(1, zoomFactor - 0.5); // alejar, mínimo 1
     }
 });
-
+//mostrar más
 function toggleCategoria(boton) {
   const categoriaDiv = boton.closest('.categoria');
   const hiddenItems = categoriaDiv.querySelectorAll('.hidden-item');
@@ -291,3 +293,5 @@ document.addEventListener('DOMContentLoaded', () => {
     item.style.display = 'none';
   });
 });
+
+

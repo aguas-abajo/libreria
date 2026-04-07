@@ -12,28 +12,20 @@ def esc(s):
 
 def slugify(s):
     s = str(s)
-    # Normaliza acentos
     s = unicodedata.normalize("NFD", s)
     s = s.encode("ascii", "ignore").decode("utf-8")
-    # Reglas específicas
-    s = s.replace(":", "_")            # unifica ":" -> "_"
-    s = s.replace(" ", "_")            # espacios -> "_"
-    s = re.sub(r"[¿?]", "", s)         # elimina signos de pregunta
-    # Resto de no alfanumérico -> "_"
+    s = s.replace(":", "_")
+    s = s.replace(" ", "_")
+    s = re.sub(r"[¿?]", "", s)
     s = re.sub(r"[^a-zA-Z0-9_]", "_", s)
-    # Colapsa múltiples "_"
     s = re.sub(r"_+", "_", s)
     return s.strip("_").lower()
 
-# Carpeta de imágenes y logo placeholder 
 img_folder = "img"
-logo_placeholder = "agua_sabajo_logo.png"  # está en la raíz
+logo_placeholder = "agua_sabajo_logo.png"
 
-# Cargar el archivo XLS
 df = pd.read_excel('LIBRERÍA_AGUAS_ABAJO.xlsx')
 
-
-# Seleccionar columnas necesarias y manejar NaN
 df = df[['TÍTULO', 'AUTOR', 'AÑO', 'ISBN', 'EDITORIAL', 'RESUMEN', 'PRECIO VENTA', 'CATEGORIA', 'DIMENSIONES']].fillna({
     'ISBN': "No disponible",
     'AÑO': "No disponible",
@@ -42,23 +34,19 @@ df = df[['TÍTULO', 'AUTOR', 'AÑO', 'ISBN', 'EDITORIAL', 'RESUMEN', 'PRECIO VEN
     'DIMENSIONES': "No disponible"
 })
 
-
 productos_html = ''
 
-# Agrupar por categoría
 for categoria, grupo in df.groupby("CATEGORIA"):
     categoria_id = slugify(categoria)
     productos_html += f'\n<div class="categoria" id="{categoria_id}">\n  <h2>{esc(categoria)}</h2>\n  <div class="row">\n'
 
-    for _, row in grupo.iterrows():
-        # Escapar textos
+    for idx, (_, row) in enumerate(grupo.iterrows()):
         titulo = esc(row['TÍTULO'])
         autor = esc(row['AUTOR'])
         editorial = esc(row['EDITORIAL'])
         resumen = esc(row['RESUMEN'])
         isbn = esc(row['ISBN'])
 
-        # Año robusto
         if row['AÑO'] == "No disponible":
             año = "No disponible"
         else:
@@ -67,22 +55,17 @@ for categoria, grupo in df.groupby("CATEGORIA"):
             except Exception:
                 año = esc(row['AÑO'])
 
-        # Precio robusto
         try:
             precio = int(float(row['PRECIO VENTA']))
         except Exception:
             precio = 0
 
-        # Slug seguro para nombres de archivo
         titulo_slug = slugify(row['TÍTULO'])
-        print(titulo_slug)
 
-        # Rutas de imágenes esperadas
         cover_path = f"{img_folder}/{titulo_slug}_cover.jpg"
         back_path  = f"{img_folder}/{titulo_slug}_back.jpg"
         in_path    = f"{img_folder}/{titulo_slug}_in.jpg"
 
-        # Si no existen, usar logo como placeholder
         if not os.path.exists(cover_path):
             cover_path = logo_placeholder
         if not os.path.exists(back_path):
@@ -92,9 +75,10 @@ for categoria, grupo in df.groupby("CATEGORIA"):
 
         dimensiones = esc(row['DIMENSIONES'])
 
-        # Generar HTML para cada producto con data-attributes
+        extra_class = " hidden-item" if idx >= 3 else ""
+
         productos_html += f'''
-        <div class="col-md-4">
+        <div class="col-md-4{extra_class}">
             <div class="producto">
                 <img
                     src="{cover_path}"
@@ -118,23 +102,63 @@ for categoria, grupo in df.groupby("CATEGORIA"):
         </div>
         '''
 
+    productos_html += "\n  </div>\n"
 
-    productos_html += "\n  </div>\n</div>\n"
+    # Solo añadir botón si hay más de 3 productos
+    if len(grupo) > 3:
+        productos_html += '  <div class="ver-mas-container"><button class="ver-mas" onclick="toggleCategoria(this)">Ver más</button></div>\n'
+
+    productos_html += "</div>\n"
 
 # Leer index.html
 with open('index.html', 'r', encoding='utf-8') as f:
     index_content = f.read()
 
-# Reemplazar bloque entre <!-- INICIO --> y <!-- FIN -->
+# Script JS para manejar ver más/menos
+script_js = """
+<style>
+.ver-mas-container {
+  text-align: center;
+  margin-top: 15px;
+}
+.ver-mas {
+  padding: 8px 16px;
+  background-color: #444;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+.ver-mas:hover {
+  background-color: #666;
+}
+</style>
+<script>
+function toggleCategoria(boton) {
+  const categoriaDiv = boton.closest('.categoria');
+  const hiddenItems = categoriaDiv.querySelectorAll('.hidden-item');
+  const expanded = boton.getAttribute('data-expanded') === 'true';
+  hiddenItems.forEach(item => {
+    item.style.display = expanded ? 'none' : 'block';
+  });
+  boton.textContent = expanded ? 'Ver más' : 'Ver menos';
+  boton.setAttribute('data-expanded', expanded ? 'false' : 'true');
+}
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.hidden-item').forEach(item => {
+    item.style.display = 'none';
+  });
+});
+</script>
+"""
+
 new_content = re.sub(
     r'<!-- INICIO -->.*?<!-- FIN -->',
-    f'<!-- INICIO -->\n{productos_html}<!-- FIN -->',
+    f'<!-- INICIO -->\n{productos_html}{script_js}\n<!-- FIN -->',
     index_content,
     flags=re.DOTALL
 )
 
-# Guardar index.html
 with open('index.html', 'w', encoding='utf-8') as f:
     f.write(new_content)
 
-print("El contenido del catálogo en index.html ha sido actualizado y agrupado por categorías ✅")
+print("✅ Catálogo actualizado: 3 ítems visibles por categoría, botón centrado 'Ver más' solo si corresponde.")

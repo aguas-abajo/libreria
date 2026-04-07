@@ -26,8 +26,9 @@
 }
 
 /* ===== Tipografía y elementos generales ===== */
-body {
+body, p {
   font-family: 'Atkinson Hyperlegible', sans-serif;
+  font-size: 18px;
   background-color: var(--bg-color);
   color: var(--text-color);
 }
@@ -54,6 +55,10 @@ footer {
   text-align: center;
 }
 
+.foottext{
+  background-color: var(--footer-bg);
+  font-size:14px;
+}
 /* ===== Productos ===== */
 .producto {
   display: flex;
@@ -303,4 +308,38 @@ button:hover {
 
 .theme-float-btn:hover {
   background: #555;
+}
+
+.zoom-container {
+  position: relative;
+  display: inline-block;
+}
+
+.zoom-container {
+  position: relative;
+  display: inline-block;
+}
+
+#imgModal {
+  max-width: 80%;
+  display: block;
+  margin: 0 auto;
+}
+
+#lupa {
+  position: absolute;
+  border: 2px solid #000;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  pointer-events: none;
+  display: none;
+  z-index: 10;
+}
+
+#lupa img {
+  position: absolute;
+  width: 200%; /* nivel de zoom */
+  height: auto;
 }

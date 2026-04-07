@@ -228,3 +228,50 @@ document.addEventListener("DOMContentLoaded", () => {
     toggle.textContent = currentTheme === "dark" ? "☀️ Modo claro" : "🌙 Modo oscuro";
   });
 });
+const imgModal = document.getElementById("imgModal");
+const lupa = document.getElementById("lupa");
+let zoomFactor = 3; // nivel inicial de zoom
+
+imgModal.addEventListener("mousemove", function(e) {
+    const rect = imgModal.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    lupa.style.display = "block";
+    lupa.style.left = (x - lupa.offsetWidth / 4) + "px";
+    lupa.style.top = (y - lupa.offsetHeight / 4) + "px";
+
+    let zoomImg = lupa.querySelector("img");
+    if (!zoomImg) {
+        zoomImg = document.createElement("img");
+        zoomImg.src = imgModal.src;
+        zoomImg.style.position = "absolute";
+        zoomImg.style.width = rect.width + "px";
+        zoomImg.style.height = rect.height + "px";
+        zoomImg.style.transformOrigin = "top left";
+        zoomImg.style.transform = `scale(${zoomFactor})`;
+        lupa.appendChild(zoomImg);
+    }
+
+    zoomImg.style.transform = `scale(${zoomFactor})`;
+    zoomImg.style.left = -(x * zoomFactor - lupa.offsetWidth / 2) + "px";
+    zoomImg.style.top = -(y * zoomFactor - lupa.offsetHeight / 2) + "px";
+});
+
+imgModal.addEventListener("mouseleave", function() {
+    lupa.style.display = "none";
+    const zoomImg = lupa.querySelector("img");
+    if (zoomImg) {
+        lupa.removeChild(zoomImg);
+    }
+});
+
+// Ajustar zoom con la rueda del mouse
+imgModal.addEventListener("wheel", function(e) {
+    e.preventDefault();
+    if (e.deltaY < 0) {
+        zoomFactor += 0.5; // acercar
+    } else {
+        zoomFactor = Math.max(1, zoomFactor - 0.5); // alejar, mínimo 1
+    }
+});

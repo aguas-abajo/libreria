@@ -123,6 +123,10 @@ button:hover {
   color: var(--text-color);
 }
 
+.text-left{
+  text-align: left;
+}
+
 .btn-close {
   filter: invert( var(--text-color) == #000000 ? 0 : 1 );
 }

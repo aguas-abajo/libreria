@@ -228,6 +228,8 @@ document.addEventListener("DOMContentLoaded", () => {
     toggle.textContent = currentTheme === "dark" ? "☀️ Modo claro" : "🌙 Modo oscuro";
   });
 });
+
+//zoom
 const imgModal = document.getElementById("imgModal");
 const lupa = document.getElementById("lupa");
 let zoomFactor = 3; // nivel inicial de zoom
@@ -275,40 +277,20 @@ imgModal.addEventListener("wheel", function(e) {
         zoomFactor = Math.max(1, zoomFactor - 0.5); // alejar, mínimo 1
     }
 });
-
+//mostrar más
 function toggleCategoria(boton) {
   const categoriaDiv = boton.closest('.categoria');
   const hiddenItems = categoriaDiv.querySelectorAll('.hidden-item');
   const expanded = boton.getAttribute('data-expanded') === 'true';
-
   hiddenItems.forEach(item => {
     item.style.display = expanded ? 'none' : 'block';
   });
-
   boton.textContent = expanded ? 'Ver más' : 'Ver menos';
   boton.setAttribute('data-expanded', expanded ? 'false' : 'true');
 }
-
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.categoria').forEach(categoriaDiv => {
-    const items = categoriaDiv.querySelectorAll('.producto'); // todos los productos
-    const boton = categoriaDiv.querySelector('.ver-mas');
-
-    // si hay más de 3, ocultamos los demás y mostramos el botón
-    if (items.length > 3) {
-      items.forEach((item, index) => {
-        if (index >= 3) {
-          item.classList.add('hidden-item');
-          item.style.display = 'none';
-        }
-      });
-      boton.style.display = 'inline-block';
-      boton.setAttribute('data-expanded', 'false');
-      boton.textContent = 'Ver más';
-    } else {
-      // si hay 3 o menos, no mostramos el botón
-      if (boton) boton.style.display = 'none';
-    }
+  document.querySelectorAll('.hidden-item').forEach(item => {
+    item.style.display = 'none';
   });
 });
 

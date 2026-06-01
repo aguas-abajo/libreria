@@ -61,6 +61,7 @@ for categoria, grupo in df.groupby("CATEGORIA"):
             precio = 0
 
         titulo_slug = slugify(row['TÍTULO'])
+        print(titulo_slug)
 
         cover_path = f"{img_folder}/{titulo_slug}_cover.jpg"
         back_path  = f"{img_folder}/{titulo_slug}_back.jpg"

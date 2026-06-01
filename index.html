@@ -448,7 +448,7 @@
         <div class="col-md-4">
             <div class="producto">
                 <img
-                    src="agua_sabajo_logo.png"
+                    src="img/arboles_nativos_zona_sur_y_andino_patagonica_cover.jpg"
                     alt="Portada Árboles nativos zona sur y andino patagónica"
                     data-titulo="Árboles nativos zona sur y andino patagónica"
                     data-autor="nan"
@@ -457,14 +457,14 @@
                     data-editorial="Naturaleza Inarrumen"
                     data-dimensiones="No disponible"
                     data-resumen="No disponible"
-                    data-precio="0"
-                    data-cover="agua_sabajo_logo.png"
+                    data-precio="5000"
+                    data-cover="img/arboles_nativos_zona_sur_y_andino_patagonica_cover.jpg"
                     data-back="agua_sabajo_logo.png"
-                    data-in="agua_sabajo_logo.png"
+                    data-in="img/arboles_nativos_zona_sur_y_andino_patagonica_in.jpg"
                     onclick="mostrarInfo(this)"
                 ><br>
-                <span>Árboles nativos zona sur y andino patagónica<br> <strong>$0</strong></span><br>
-                <button onclick="agregarAlCarrito('Árboles nativos zona sur y andino patagónica', 0)">Añadir</button>
+                <span>Árboles nativos zona sur y andino patagónica<br> <strong>$5000</strong></span><br>
+                <button onclick="agregarAlCarrito('Árboles nativos zona sur y andino patagónica', 5000)">Añadir</button>
             </div>
         </div>
         
@@ -808,6 +808,40 @@
         
   </div>
 </div>
+
+<style>
+.ver-mas-container {
+  text-align: center;
+  margin-top: 15px;
+}
+.ver-mas {
+  padding: 8px 16px;
+  background-color: #444;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+.ver-mas:hover {
+  background-color: #666;
+}
+</style>
+<script>
+function toggleCategoria(boton) {
+  const categoriaDiv = boton.closest('.categoria');
+  const hiddenItems = categoriaDiv.querySelectorAll('.hidden-item');
+  const expanded = boton.getAttribute('data-expanded') === 'true';
+  hiddenItems.forEach(item => {
+    item.style.display = expanded ? 'none' : 'block';
+  });
+  boton.textContent = expanded ? 'Ver más' : 'Ver menos';
+  boton.setAttribute('data-expanded', expanded ? 'false' : 'true');
+}
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.hidden-item').forEach(item => {
+    item.style.display = 'none';
+  });
+});
+</script>
 
 <!-- FIN -->
         </div>
